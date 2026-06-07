@@ -21,11 +21,11 @@ const VIDEO_MAP = {
     src: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
   },
 
-  // 1화 — 유튜브에 영상 올린 뒤, 아래 id를 실제 영상 ID로 바꾸세요.
+  // 1화 — qr-ch1.png와 연결되는 로컬 mp4 영상
   ch1: {
     title: "1화 · 조선의 영웅, 하늘로 사라지다!",
-    type: "youtube",
-    id: "YOUTUBE_VIDEO_ID_HERE"
+    type: "mp4",
+    src: "source/videos/video1.mp4"
   },
 
   // 2화 — 비행기 영상
