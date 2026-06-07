@@ -1,12 +1,11 @@
 /* 마법과학 AR — 아주 단순한 서비스워커 (앱 껍데기 캐시)
    영상은 캐시하지 않음(용량 큼). 기본 화면만 빠르게 뜨도록. */
-const CACHE = "magicscience-v1";
+const CACHE = "magicscience-v2";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
-  "./config.js",
   "./manifest.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
@@ -32,7 +31,19 @@ self.addEventListener("fetch", (e) => {
   if (url.includes("youtube") || url.endsWith(".mp4") || url.includes("googlevideo")) {
     return; // 브라우저 기본 처리
   }
+
+  if (url.endsWith("/config.js")) {
+    e.respondWith(fetch(e.request));
+    return;
+  }
+
   e.respondWith(
-    caches.match(e.request).then((res) => res || fetch(e.request))
+    fetch(e.request)
+      .then((res) => {
+        const copy = res.clone();
+        caches.open(CACHE).then((cache) => cache.put(e.request, copy)).catch(() => {});
+        return res;
+      })
+      .catch(() => caches.match(e.request))
   );
 });
