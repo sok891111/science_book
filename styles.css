@@ -133,15 +133,17 @@ h1 span { color: var(--gold); }
 /* 뒤로/닫기 버튼 */
 .back-btn {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 14px);
-  right: 16px;
+  top: calc(env(safe-area-inset-top, 0px) + 18px);
+  right: 18px;
   z-index: 50;
-  width: 46px; height: 46px;
+  width: 64px; height: 64px;
   border-radius: 50%;
   border: none;
-  background: rgba(0,0,0,.55);
+  background: rgba(0,0,0,.68);
   color: #fff;
-  font-size: 22px;
+  font-size: 34px;
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 6px 22px rgba(0,0,0,.35);
 }
 .back-btn:active { background: rgba(0,0,0,.8); }

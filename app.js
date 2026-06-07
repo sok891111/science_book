@@ -1,6 +1,6 @@
 /* =========================================================
    마법과학 AR — 메인 로직
-   흐름: 시작화면 → 카메라(QR스캔) → 영상재생 → 끝나면 다시 스캔
+   흐름: 시작화면 → 카메라(QR스캔) → 영상재생 → 끝나면 시작화면
    ========================================================= */
 
 (() => {
@@ -118,7 +118,7 @@
       mp4.src = currentItem.src;
       mp4.currentTime = 0;
       mp4.play().catch((e) => console.warn("재생 대기", e));
-      mp4.onended = returnToScanner;
+      mp4.onended = returnToStart;
     } else if (currentItem.type === "youtube") {
       mp4.style.display = "none";
       ytContainer.style.display = "block";
@@ -145,7 +145,7 @@
           events: {
             onReady: (e) => e.target.playVideo(),
             onStateChange: (e) => {
-              if (e.data === YT.PlayerState.ENDED) returnToScanner();
+              if (e.data === YT.PlayerState.ENDED) returnToStart();
             },
           },
         });
@@ -169,9 +169,9 @@
     currentItem = null;
   }
 
-  function returnToScanner() {
+  function returnToStart() {
     stopPlayback();
-    startScanner();
+    stopScanner().then(() => show("start"));
   }
 
   /* =======================  유튜브 API 로드  ======================= */
@@ -207,7 +207,7 @@
   });
 
   document.getElementById("btn-back-from-player").addEventListener("click", () => {
-    returnToScanner();
+    returnToStart();
   });
 
   // 서비스워커(오프라인) 등록 — 있으면 등록, 없으면 무시
