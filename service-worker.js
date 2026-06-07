@@ -1,6 +1,6 @@
 /* 마법과학 AR — 아주 단순한 서비스워커 (앱 껍데기 캐시)
    영상은 캐시하지 않음(용량 큼). 기본 화면만 빠르게 뜨도록. */
-const CACHE = "magicscience-v3";
+const CACHE = "magicscience-v4";
 const ASSETS = [
   "./",
   "./index.html",

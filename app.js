@@ -35,7 +35,13 @@
   async function startScanner() {
     show("scan");
     scanStatus.textContent = "";
-    if (!html5qr) html5qr = new Html5Qrcode("reader", { verbose: false });
+
+    // iOS(Safari/PWA)에서는 같은 인스턴스로 stop() 후 다시 start() 하면
+    // 카메라 스트림이 다시 안 열리는 문제가 있다.
+    // → 매번 이전 인스턴스를 완전히 정리하고 새로 만들어 깨끗하게 시작한다.
+    // (카메라 권한은 한 번 허용하면 세션 동안 유지되므로 다시 묻지 않는다)
+    await stopScanner();
+    html5qr = new Html5Qrcode("reader", { verbose: false });
 
     const config = {
       fps: 10,
@@ -60,17 +66,29 @@
   }
 
   async function stopScanner() {
-    if (html5qr && isScanning) {
-      try {
+    if (!html5qr) return;
+    try {
+      // 실제 스캐너 상태를 직접 확인해서(2=SCANNING, 3=PAUSED) 정지한다.
+      const state = html5qr.getState ? html5qr.getState() : null;
+      if (isScanning || state === 2 || state === 3) {
         await html5qr.stop();
-      } catch (e) {
-        /* ignore */
       }
-      isScanning = false;
+    } catch (e) {
+      /* ignore */
     }
+    try {
+      // reader div에 남은 이전 video/canvas 엘리먼트까지 제거해 다음 시작을 깨끗하게.
+      await html5qr.clear();
+    } catch (e) {
+      /* ignore */
+    }
+    isScanning = false;
+    html5qr = null;
   }
 
   function onScanSuccess(decodedText) {
+    if (!isScanning) return; // 이미 인식 처리 중이면 중복 실행 방지
+
     const code = parseCode(decodedText);
     const item = VIDEO_MAP[code];
 
@@ -83,7 +101,8 @@
       return;
     }
 
-    // 인식 성공 → 스캐너 끄고 재생 준비
+    // 인식 성공 → 더 이상 콜백을 처리하지 않도록 막고, 스캐너 끄고 재생 준비
+    isScanning = false;
     stopScanner().then(() => openPlayer(item));
   }
 
