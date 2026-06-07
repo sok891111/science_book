@@ -50,6 +50,9 @@
       rememberLastUsedCamera: true,
     };
 
+    // iOS에서는 start() Promise가 늦게 resolve되기도 해서, 그 사이 들어온
+    // 스캔 콜백이 가드(if (!isScanning) return)에 막히지 않도록 미리 켜둔다.
+    isScanning = true;
     try {
       await html5qr.start(
         { facingMode: "environment" }, // 뒷면 카메라
@@ -57,8 +60,8 @@
         onScanSuccess,
         () => {} // 인식 실패(매 프레임)는 무시
       );
-      isScanning = true;
     } catch (err) {
+      isScanning = false;
       scanStatus.textContent =
         "카메라를 열 수 없어요 😢 (권한 허용 / https 주소인지 확인해주세요)";
       console.error(err);
