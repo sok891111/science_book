@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <title>마법과학 AR</title>
+
+  <!-- PWA / 홈 화면에 추가 -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0b1f3a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="마법과학" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ① 시작 화면 -->
+  <section id="screen-start" class="screen active">
+    <div class="start-inner">
+      <img class="logo" src="icons/icon-192.png" alt="마법과학" />
+      <h1>마법과학 <span>AR</span></h1>
+      <p class="subtitle">책 속 QR을 비추면<br/>마법 같은 과학 영상이 펼쳐져요!</p>
+      <button id="btn-open-camera" class="big-btn">📷 카메라 켜기</button>
+      <p class="hint">버튼을 누른 뒤, 책의 QR 마크를 비춰주세요.</p>
+    </div>
+  </section>
+
+  <!-- ② 스캔 화면 -->
+  <section id="screen-scan" class="screen">
+    <div id="reader"></div>
+    <div class="scan-overlay">
+      <div class="scan-box"></div>
+      <p class="scan-guide">여기에 책의 QR을 맞춰주세요</p>
+    </div>
+    <button id="btn-back-from-scan" class="back-btn">✕</button>
+    <p id="scan-status" class="scan-status"></p>
+  </section>
+
+  <!-- ③ 재생 화면 -->
+  <section id="screen-player" class="screen">
+    <button id="btn-back-from-player" class="back-btn">✕</button>
+
+    <!-- 재생 준비(탭하면 재생) - iOS 소리 재생을 위해 사용자 터치 필요 -->
+    <div id="play-gate" class="play-gate">
+      <p id="play-title" class="play-title">영상</p>
+      <button id="btn-play" class="play-btn">▶</button>
+      <p class="play-hint">버튼을 누르면 영상이 시작돼요</p>
+    </div>
+
+    <video id="mp4-player" class="player-media" playsinline webkit-playsinline controls></video>
+    <div id="yt-player" class="player-media"></div>
+  </section>
+
+  <!-- 라이브러리 -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

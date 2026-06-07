@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>마법과학 QR 모음 (인쇄용)</title>
+  <style>
+    body { font-family: "Apple SD Gothic Neo", sans-serif; padding: 30px; color: #0b1f3a; }
+    h1 { text-align: center; }
+    p.guide { text-align: center; color: #555; }
+    .grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 24px; }
+    .card {
+      width: 230px; border: 2px solid #0b1f3a; border-radius: 16px;
+      padding: 16px; text-align: center;
+    }
+    .card img { width: 180px; height: 180px; }
+    .card .code { font-family: monospace; color: #888; margin-top: 4px; }
+    .card .title { font-size: 18px; font-weight: 700; margin-top: 8px; }
+    @media print { .card { break-inside: avoid; } p.guide { display:none; } }
+  </style>
+</head>
+<body>
+  <h1>📚 마법과학 — 책에 넣을 QR 코드</h1>
+  <p class="guide">이 페이지를 인쇄해서 가위로 오려 책 페이지에 붙이거나, 만화 이미지에 합성하세요. (무광 인쇄 권장 · 최소 3cm 이상)</p>
+  <div class="grid">
+    <div class="card">
+      <img src="qr-demo.png" alt="demo" />
+      <div class="title">데모 (테스트용)</div>
+      <div class="code">demo</div>
+    </div>
+    <div class="card">
+      <img src="qr-ch1.png" alt="ch1" />
+      <div class="title">1화 · 하늘로 사라지다!</div>
+      <div class="code">ch1</div>
+    </div>
+    <div class="card">
+      <img src="qr-ch2.png" alt="ch2" />
+      <div class="title">2화 · 비행기의 비밀</div>
+      <div class="code">ch2</div>
+    </div>
+    <div class="card">
+      <img src="qr-ch3.png" alt="ch3" />
+      <div class="title">3화 · 배와 부력</div>
+      <div class="code">ch3</div>
+    </div>
+  </div>
+</body>
+</html>
