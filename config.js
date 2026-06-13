@@ -30,16 +30,22 @@ const VIDEO_MAP = {
 
   // 2화 — 비행기 영상
   ch2: {
-    title: "2화 · 비행기는 무슨 도술이냐?!",
-    type: "youtube",
-    id: "YOUTUBE_VIDEO_ID_HERE"
+    title: "4화 · 로켓이 하늘로 날아간다고?!",
+    type: "mp4",
+    src: "source/videos/video2.mp4"
   },
 
   // 3화 — 배와 부력 영상
   ch3: {
-    title: "3화 · 배는 왜 안 가라앉지?!",
-    type: "youtube",
-    id: "YOUTUBE_VIDEO_ID_HERE"
+    title: "5화 · 나는 왜 날아가지 않지?!",
+    type: "mp4",
+    src: "source/videos/video3.mp4"
+  },
+
+  ch4: {
+    title: "6화 · 뜨거워라 마찰열!",
+    type: "mp4",
+    src: "source/videos/video4.mp4"
   },
 
 };
