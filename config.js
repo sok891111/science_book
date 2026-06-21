@@ -48,4 +48,21 @@ const VIDEO_MAP = {
     src: "source/videos/video4.mp4"
   },
 
+  ch5: {
+    title: "7화 · 전기야 흘러라!",
+    type: "mp4",
+    src: "source/videos/video5.mp4"
+  },
+
+  ch6: {
+    title: "8화 · 찌릿 정전기!",
+    type: "mp4",
+    src: "source/videos/video6.mp4"
+  },
+
+  ch7: {
+    title: "9화 · 전기를 만들어라 - 발전!",
+    type: "mp4",
+    src: "source/videos/video7.mp4"
+  },
 };
